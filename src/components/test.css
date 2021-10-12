@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 500px;
+    margin: 60px auto;
+}
+
+.container h1 {
+    margin-bottom: 50px;
+    text-align: center;
+    color: black;
+}
+form {
+    background-color: white;
+    padding: 30px;
+}
+
+form .input-group {
+    margin-bottom: 15px;
+}
+
+form .input-choice {
+    margin-bottom: 15px;
+}
+
+form .input-group label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form .input-choice label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form .input-group input {
+    padding: 12px 20px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+form .input-choice .answers {
+    padding: 12px 20px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+form .input-choice .answers input {
+    margin-left: 10px;
+}
+
+.submit-btn {
+    width: 100%;
+    border: none;
+    background: #30cfd0;
+    font-size: 18px;
+    color: white;
+    border-radius: 3px;
+    padding: 20px;
+    text-align: center;
+}
+
+.error {
+    margin-bottom: 15px;
+    padding: 12px 20px;
+    width: 100%;
+    font-weight: bold;
+    color: red;
+}
