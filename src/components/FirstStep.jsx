@@ -6,19 +6,23 @@ export const FirstStep = () => {
     const [hasKids, setHasKids] = useState(null);
     const [age, setAge] = useState(1);
     const [howManyKids, setHowManyKids] = useState(null);
+    const [ageOfYoungestKid, setAgeOfYoungestKid] = useState(null);
     const [kids, setKids] = useState([]);
     const [errorAgeLessOrEqualToZero, setErrorAgeLessOrEqualToZero] = useState("");
     const [errorKidsLessOrEqualToZero, setErrorKidsLessOrEqualToZero] = useState("");
     const [errorCustomHouseType, setErrorCustomHouseType] = useState("");
+    const [errorSetFlatFloor, setErrorSetFlatFloor] = useState("");
     const [gender, setGender] = useState("");
     const [houseType, setHouseType] = useState("");
     const [customHouseType, setCustomHouseType] = useState("");
     const [flatFloor, setFlatFloor] = useState(null);
+    const [images, setImages] = useState([]);
+    const [noImage, setNoImage] = useState(true);
 
     useEffect(() => {
-        document.getElementById("children_question_no").addEventListener("change", test);
+        document.getElementById("children_question_no").addEventListener("change", function() {setErrorKidsLessOrEqualToZero("");});
         return () => {
-            document.getElementById("children_question_no").addEventListener("change", test);
+            document.getElementById("children_question_no").addEventListener("change", function() {setErrorKidsLessOrEqualToZero("");});
         }
     }, []);
     
@@ -37,17 +41,16 @@ export const FirstStep = () => {
     }
 
     function validateCountOfKids(event) {
-        console.log(event.target.value)
-        if (event.target.value == "") {
-            setHowManyKids(event.target.value);
+        if (event.target.value == 0){
+            setHowManyKids(event.target.value)
+            setErrorKidsLessOrEqualToZero('Zaznaczono wcześniej, że posiada Pan/i dzieci. Proszę wskazać poprawną liczbę lub zmienić odpowiedź powyżej z "tak" na "nie".')
         }
-        else if (event.target.value <= 0) {
-            setErrorKidsLessOrEqualToZero('Zaznaczono wcześniej, że posiada Pan/i dzieci. Proszę wskazać poprawną liczbę lub zmienić odpowiedź powyżej z "tak" na "nie".');
+        else if (event.target.value == "" || isInt(event.target.value)){
             setHowManyKids(event.target.value);
+            setErrorKidsLessOrEqualToZero("");
         }
         else {
-            setErrorKidsLessOrEqualToZero("")
-            setHowManyKids(event.target.value);
+            setErrorKidsLessOrEqualToZero("Możesz wprowadzić tylko wartości całkowite większe niż 0!")
         }
     }
 
@@ -86,14 +89,23 @@ export const FirstStep = () => {
     }
 
     const imageHandler = event => {
-        let file = event.target.files[0];
-        console.log(file);
+        images.length = 0;
+        let copyImageTable = images;
+        if (event.target.files.length > 0){
+            setNoImage(false);
+            for (let i=0; i < event.target.files.length; i++){
+                let file = event.target.files[i];
+                copyImageTable.push(file)
+                console.log(file);
+            }
+            setImages(copyImageTable);
+        }
+        else {
+            setNoImage(true);
+        }
+        console.log(images)
         // console.log(URL.createObjectURL(file));
     };
-
-    function test(){
-        setErrorKidsLessOrEqualToZero("");
-    }
 
     function handleHasChildren(event){
         setHasKids(true);
@@ -106,12 +118,21 @@ export const FirstStep = () => {
     }
 
     function validateSetFloor(event){
-        console.log(event.target.value);
-        setFlatFloor(event.target.value);
+        if (event.target.value == "" || isInt(event.target.value)){
+            setFlatFloor(event.target.value);
+            setErrorSetFlatFloor("");
+        }
+        else{
+            setErrorSetFlatFloor("Możesz wprowadzić tylko wartości całkowite większe lub równe 0!")
+        }
     }
 
+    function isInt(value) {
+        return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
+      }
+
     let hasGender = (gender == "male" || gender == "female")
-    let noErrors = (errorAgeLessOrEqualToZero == "" && errorKidsLessOrEqualToZero == "")
+    let noErrors = (errorAgeLessOrEqualToZero == "" && errorKidsLessOrEqualToZero == "" && errorSetFlatFloor == "")
     let allQuestionsHaveAnswer = (gender != "" && houseType != "" && hasKids != null)
 
 
@@ -183,6 +204,11 @@ export const FirstStep = () => {
                                 <label htmlFor="flat_floor">Proszę wskazać piętro na którym znajduje się mieszkanie (parter=0):</label>
                                 <input className='default' name='flat_floor' id='flat_floor' type="number" min="0" step="1" value={flatFloor} onChange={event => validateSetFloor(event)} />
                             </div>
+                            {errorSetFlatFloor != "" && (
+                                <div className="error">
+                                {errorSetFlatFloor}
+                                </div>
+                            )}
                         </>
                     )}
                     {errorCustomHouseType != "" && (
@@ -194,13 +220,17 @@ export const FirstStep = () => {
                         <label htmlFor='files'>Dodaj zdjęcia mieszkania:</label>
                         <input className='inputfile' id='files' type="file" multiple onChange={imageHandler} />
                     </div>
-                {noErrors && allQuestionsHaveAnswer &&
+                    {noImage && (
+                        <div className="error">Nie wybrano zdjęcia!
+                        </div>
+                    )}
+                {noErrors && allQuestionsHaveAnswer && !noImage &&
                     (<button className="submit-btn" type='submit' id="submit_button_enabled">Prześlij dane</button>)}
-                {(!noErrors || !allQuestionsHaveAnswer) &&
+                {(!noErrors || !allQuestionsHaveAnswer || noImage) &&
                     (<button className="submit-btn" type='submit' id="submit_button_disabled" title="Nie możesz przesłać danych, ponieważ formularz zawiera błędy lub niektóre pytania nie mają odpowiedzi" disabled >Prześlij dane
                     </button>)}
-                {!allQuestionsHaveAnswer &&
-                    (<div className="error">Nie możesz przesłać danych, ponieważ formularz zawiera pytania bez odpowiedzi!</div>)}
+                {(!allQuestionsHaveAnswer && noImage) &&
+                    (<div className="error">Nie możesz przesłać danych, ponieważ formularz zawiera pytania bez odpowiedzi lub nie wybrano zdjęcia!</div>)}
                 {!noErrors &&
                     (<div className="error">Nie możesz przesłać danych, ponieważ formularz zawiera błędy!</div>)}
                 </form>
