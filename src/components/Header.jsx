@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import Logo from '../photos/logo.png'
 import LogoMobile from '../photos/piesioWRamce.png'
 
-window.onscroll = function () { scrollFunction() };
+// window.onscroll = function () { scrollFunction() };
 
-function scrollFunction() {
-    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        document.getElementById("header").classList.add("header_small");
-        document.getElementById("header").classList.remove("header_big");
-    } else {
-        document.getElementById("header").classList.add("header_big");
-        document.getElementById("header").classList.remove("header_small");
-    }
-}
+// function scrollFunction() {
+//     if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+//         document.getElementById("header").classList.add("header_small");
+//         document.getElementById("header").classList.remove("header_big");
+//     } else {
+//         document.getElementById("header").classList.add("header_big");
+//         document.getElementById("header").classList.remove("header_small");
+//     }
+// }
 
 export const Header = () => {
 

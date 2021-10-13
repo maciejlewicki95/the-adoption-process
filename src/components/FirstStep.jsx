@@ -9,11 +9,12 @@ export const FirstStep = () => {
     const [kids, setKids] = useState([]);
     const [errorAgeLessOrEqualToZero, setErrorAgeLessOrEqualToZero] = useState("");
     const [errorKidsLessOrEqualToZero, setErrorKidsLessOrEqualToZero] = useState("");
+    const [errorCustomHouseType, setErrorCustomHouseType] = useState("");
     const [gender, setGender] = useState("");
+    const [houseType, setHouseType] = useState("");
+    const [customHouseType, setCustomHouseType] = useState("");
 
     function validateAgeOnChange(event) {
-        console.log(hasKids);
-
         if (event.target.value == "") {
             setAge(event.target.value);
         }
@@ -28,18 +29,51 @@ export const FirstStep = () => {
     }
 
     function validateCountOfKids(event) {
-        
         if (event.target.value == "") {
             setHowManyKids(event.target.value);
         }
         else if (event.target.value <= 0) {
-            setErrorKidsLessOrEqualToZero('Zaznaczono wcześniej, że posiada Pan/i dzieci. Jeśli tak nie jest proszę zmienić odpowiedź powyżej z "tak" na "nie".');
+            setErrorKidsLessOrEqualToZero('Zaznaczono wcześniej, że posiada Pan/i dzieci. Proszę wskazać poprawną liczbę lub zmienić odpowiedź powyżej z "tak" na "nie".');
             setHowManyKids(1);
         }
         else {
             setErrorKidsLessOrEqualToZero("")
             setHowManyKids(event.target.value);
         }
+    }
+
+    function enableCustomAnswer(){
+        let customAnswer = document.getElementById("custom_answer_for_house_type");
+        customAnswer.disabled = false;
+    }
+
+    function disableCustomAnswer(){
+        let customAnswer = document.getElementById("custom_answer_for_house_type");
+        customAnswer.disabled = true;
+    }
+
+    function isValidCharacter(event){
+        var index = event.target.value.length - 1
+        console.log(index);
+        console.log(event.target.value.charCodeAt(index));
+        if ((event.target.value.charCodeAt(index) >= 65 && event.target.value.charCodeAt(index) <= 90) || 
+        (event.target.value.charCodeAt(index) >= 97 && event.target.value.charCodeAt(index) <= 122) || 
+        (event.target.value.charCodeAt(index) == 32) || 
+        (event.target.value.charCodeAt(index) >= 44 && event.target.value.charCodeAt(index) <= 46) || 
+        (event.target.value.length <= 0)) {
+            setErrorCustomHouseType("");
+            setCustomHouseType(event.target.value);
+            setHouseType(event.target.value);
+        }
+        else {
+            setErrorCustomHouseType('Możesz używać tylko małych i wielkich liter, spacji oraz znaków "." "," "-"')
+        }
+    }
+
+    function changeHouseType(houseType){
+        disableCustomAnswer();
+        setCustomHouseType("");
+        setHouseType(houseType);
     }
 
     let hasGender = (gender == "male" || gender == "female")
@@ -49,15 +83,16 @@ export const FirstStep = () => {
         <>
             <div className="container">
                 <h1>1. krok do adopcji</h1>
-                <form id='form'>
+                <h2>Pytania metryczkowe</h2>
+                <form id='form' encType="multipart/form-data" method="POST">
                     <div className="input-choice">
                         <label htmlFor='gender_question'>Płeć:</label>
                         <div className="answers">
+                            <input className='picking_input' name='gender_question' id='gender_question' type='radio' value="female" onChange={event => setGender(event.target.value)} />
                             Kobieta
-                            <input className='picking_input' name='gender_question' id='gender_question' type='radio' value="female" onChange={event => setGender(event.target.value)}/>
                             <br />
+                            <input className='picking_input' name='gender_question' id='gender_question' type='radio' value="male" onChange={event => setGender(event.target.value)} />
                             Mężczyzna
-                            <input className='picking_input' name='gender_question' id='gender_question' type='radio' value="male" onChange={event => setGender(event.target.value)}/>
                         </div>
                     </div>
                     <div className="input-group">
@@ -76,11 +111,11 @@ export const FirstStep = () => {
                             {gender == "male" && (<span>Czy ma Pan dzieci?</span>)}
                         </label>
                         <div className="answers">
+                            <input className='picking_input' name='children_question' id='children_question' type='radio' onChange={event => setHasKids(true)} />
                             Tak
-                            <input className='picking_input' name='children_question' id='children_question' type='radio' onChange={event => setHasKids(true)}/>
                             <br />
-                            Nie
                             <input className='picking_input' name='children_question' id='children_question' type='radio' onChange={event => setHasKids(false)} />
+                            Nie
                         </div>
                     </div>
                     {hasKids && (
@@ -95,12 +130,32 @@ export const FirstStep = () => {
                             )}
                         </>
                     )}
-                    <div className="input-group">
-                        <label htmlFor='files'>Select files</label>
-                        <input className='default' id='files' type="file" multiple />
+                    <h2>Informacje o mieszkaniu</h2>
+                    <div className="input-choice">
+                        <label htmlFor='house_type_question'>Typ mieszkania:</label>
+                        <div className="answers">
+                            <input className='picking_input' name='house_type_question' id='house_type_question' type='radio' value="flat" onChange={event => changeHouseType(event.target.value)} />
+                            Mieszkanie
+                            <br />
+                            <input className='picking_input' name='house_type_question' id='house_type_question' type='radio' value="single family house" onChange={event => changeHouseType(event.target.value)} />
+                            Dom jednorodzinny
+                            <br />
+                            <input className='picking_input' name='house_type_question' id='house_type_question' type='radio' onChange={event => enableCustomAnswer()} />
+                            <input type='text' id="custom_answer_for_house_type" style={{height: "21px", width: "20vw"}} disabled placeholder="inne..." value={customHouseType} onChange={event => isValidCharacter(event)} />
+                        </div>
                     </div>
-                    <button className="submit-btn" type='submit'>Upload</button>
+                    {errorCustomHouseType != "" && (
+                        <div className="error">
+                            {errorCustomHouseType}
+                        </div>
+                    )}
+                    <div className="input-group">
+                        <label htmlFor='files'>Dodaj zdjęcia mieszkania:</label>
+                        <input className='inputfile' id='files' type="file" multiple data-multiple-caption="{count} files selected" />
+                    </div>
+                    <button className="submit-btn" type='submit'>Prześlij dane</button>
                 </form>
+                
             </div>
 
         </>
