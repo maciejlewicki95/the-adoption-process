@@ -2,12 +2,25 @@ import './App.css';
 import {Header} from './components/Header'
 import {Footer} from './components/Footer'
 import {FirstStep} from './components/FirstStep'
+import {ViewDataForShelter} from './components/ViewDataForShelter'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
     <Header></Header>
-    <FirstStep></FirstStep>
+    <Router>
+      <Switch>
+        {/* <Route path="/"><div>STRONA GŁÓWNA</div></Route> */}
+        {/* <Route path="/"><FirstStep></FirstStep></Route> */}
+        <Route path="/"><ViewDataForShelter></ViewDataForShelter></Route>
+      </Switch>
+    </Router>
     <Footer></Footer>
     </div>
   );

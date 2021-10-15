@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import './test.css'
 import axios from 'axios';
 
@@ -140,6 +140,13 @@ export const FirstStep = () => {
         return !isNaN(value) && (function (x) { return (x | 0) === x; })(parseFloat(value))
     }
 
+    function ageParseToInt(){
+        var years = parseInt(ageOfYoungestKid.years)
+        var months = parseInt(ageOfYoungestKid.months)
+        var ageInMonths = years*12 + months
+        return ageInMonths
+    }
+
     function test(event) {
         event.preventDefault();
         test2();
@@ -147,16 +154,27 @@ export const FirstStep = () => {
 
     function test2() {
         alert(hasKids);
-        const data = new FormData();
-        data.append("gender", gender)
-        data.append("age", age)
-        data.append("has_kids", hasKids)
-        data.append("how_many_kids", howManyKids)
-        data.append("age_of_the_youngest_kid", ageOfYoungestKid)
-        data.append("house_type", houseType)
-        data.append("flat_floor", flatFloor)
-        data.append("house_area", houseArea)
-        data.append("images", images)
+        
+        const data = {};
+        data["gender"] = gender
+        data["age"] = age
+        data["hasKids"] = hasKids
+        data["howManyKids"] = howManyKids
+        data["ageOfYoungestKid"] = ageParseToInt()
+        data["houseType"] = houseType
+        data["flatFloor"] = flatFloor
+        data["houseArea"] = houseArea
+        // data.push({"gender": gender})
+        // data.push({"age": age})
+        // data.push({"has_kids": hasKids})
+        // data.push({"how_many_kids": howManyKids})
+        // data.push({"age_of_the_youngest_kid": ageOfYoungestKid})
+        // data.push({"house_type": houseType})
+        // data.push({"flat_floor": flatFloor})
+        // data.push({"house_area": houseArea})
+        // var obj = JSON.parse(data)
+        console.log(data)
+        // data.append("images", images)
         axios.post("http://localhost:8080/test", data)
 
     }
