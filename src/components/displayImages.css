@@ -1,4 +1,4 @@
-body {
+/* body {
     background-color:#f0f0f0;
 }
 #img-holder {
@@ -7,7 +7,7 @@ body {
 }
 #mask,#pic {
     position:absolute;
-    z-index:1;
+    z-index:0;
     left:0;
     right:0;
     margin:auto;
@@ -20,7 +20,7 @@ body {
     cursor:pointer;
 }
 #mask {
-    z-index:3;
+    z-index:1;
     width:226px;
     height:143px;
     padding:0;
@@ -115,4 +115,4 @@ body {
         border:1px solid #006000;
         box-shadow:5px 5px 5px #666;
     }
-}
+} */

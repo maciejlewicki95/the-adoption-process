@@ -27,7 +27,7 @@ form {
     padding: 30px;
 }
 
-form .input-group {
+form .input-test {
     margin-bottom: 15px;
 }
 
@@ -35,7 +35,7 @@ form .input-choice {
     margin-bottom: 15px;
 }
 
-form .input-group label {
+form .input-test label {
     display: block;
     margin-bottom: 10px;
 }
@@ -45,7 +45,7 @@ form .input-choice label {
     margin-bottom: 10px;
 }
 
-form .input-group input {
+form .input-test input {
     padding: 12px 20px;
     width: 100%;
     border: 1px solid #ccc;

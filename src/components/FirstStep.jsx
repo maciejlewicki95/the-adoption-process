@@ -164,6 +164,7 @@ export const FirstStep = () => {
         data["houseType"] = houseType
         data["flatFloor"] = flatFloor
         data["houseArea"] = houseArea
+        data["images"] = images
         // data.push({"gender": gender})
         // data.push({"age": age})
         // data.push({"has_kids": hasKids})
@@ -214,7 +215,7 @@ export const FirstStep = () => {
                             Mężczyzna
                         </div>
                     </div>
-                    <div className="input-group">
+                    <div className="input-test">
                         <label>Wiek:</label>
                         <input className='default' name='age' id='age' type="number" value={age} onChange={event => validateAgeOnChange(event)} />
                     </div>
@@ -237,7 +238,7 @@ export const FirstStep = () => {
                             Nie
                         </div>
                     </div>
-                    <div className="input-group" id="count_of_kids_container" style={{ display: "none" }}>
+                    <div className="input-test" id="count_of_kids_container" style={{ display: "none" }}>
                         <label>Proszę wskazać ilość dzieci:</label>
                         <input className='default' name='count_of_kids' id='count_of_kids' type="number" min="0" step="1" value={howManyKids} onChange={event => validateCountOfKids(event)} />
                         <label>Proszę wskazać wiek najmłodszego dziecka</label>
@@ -270,7 +271,7 @@ export const FirstStep = () => {
                     </div>
                     {houseType == "flat" && (
                         <>
-                            <div className="input-group">
+                            <div className="input-test">
                                 <label>Proszę wskazać piętro na którym znajduje się mieszkanie (parter=0):</label>
                                 <input className='default' name='flat_floor' id='flat_floor' type="number" min="0" step="1" value={flatFloor} onChange={event => validateSetFloor(event)} />
                             </div>
@@ -286,11 +287,11 @@ export const FirstStep = () => {
                             {errorCustomHouseType}
                         </div>
                     )}
-                    <div className="input-group">
+                    <div className="input-test">
                         <label>Powierzchnia domu/mieszkania (w m2):</label>
                         <input className='default' name='house_area' id='house_area' type="number" min="0" step="any" value={houseArea} onChange={event => changeHouseArea(event)} disabled/>
                     </div>
-                    <div className="input-group">
+                    <div className="input-test">
                         <label htmlFor='files'>Dodaj zdjęcia mieszkania:</label>
                         <input className='inputfile' id='files' type="file" multiple onChange={imageHandler} />
                     </div>

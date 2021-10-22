@@ -1,0 +1,31 @@
+.container {
+    max-width: 75vw;
+    margin: 60px auto;
+}
+
+.container h1 {
+    margin-bottom: 50px;
+    text-align: center;
+    color: black;
+}
+
+.container h2 {
+    text-align: center;
+}
+
+.gallery {
+    margin: 10px 50px;
+}
+
+.gallery img {
+    transition: 1s;
+    padding: 15px;
+    height: 150px;
+    width: 200px;
+}
+
+.gallery img:hover {
+    filter: grayscale(50%);
+    transform: scale(1.2);
+}
+
