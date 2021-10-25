@@ -20,10 +20,12 @@ export const ViewDataForShelter = () => {
 
     useEffect(() => {
 
-        const url = 'http://localhost:8080/application-data/5';
+        const url = 'http://localhost:8080/application-data/7';
         fetch(url)
             .then(data => data.json())
-            .then(response => setAppState(response));
+            .then(response => {
+                if (response.status != 500){
+                setAppState(response)}});
     })
 
     function ageConverter(ageInMonths){
@@ -54,10 +56,11 @@ export const ViewDataForShelter = () => {
     return (
         <>
             <div className="container">
-                <h1>Dane o osobie składającej wniosek</h1>
-                {appState != null && (<><div className="data-container">
+                
+                {appState != null ? (<><h1>Dane o osobie składającej wniosek</h1>
+                    <div className="data-container">
                     <div className="data-container-element"><span>Wiek: </span>{appState.age}</div>
-                    <div className="data-container-element"><span>Płeć: </span>{appState.gender == "male" ? ("mężczyzna") : ("kobieta")}</div>
+                    <div className="data-container-element"><span>Płeć: </span>{appState.gender == "male" && ("mężczyzna")} {appState.gender == "female" && ("kobieta")}</div>
                     <div className="data-container-element"><span>Liczba dzieci: </span>{appState.howManyKids}</div>
                     {appState.howManyKids > 0 && (<div className="data-container-element"><span>Wiek najmłodszego dziecka: </span>{ageConverter(appState.ageOfYoungestKid)}</div>
                                         )}
@@ -82,7 +85,7 @@ export const ViewDataForShelter = () => {
                         )
                     })}
                 </div>
-                    </>)}
+                    </>) : (<><br /><br /><br /><br /><div>WYSTĄPIŁ BŁĄD I NIE UDAŁO SIĘ ZAŁADOWAĆ DANYCH</div><br /><br /><br /><br /></>)}
 
             </div>
 
