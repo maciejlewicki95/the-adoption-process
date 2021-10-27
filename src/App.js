@@ -3,6 +3,7 @@ import {Header} from './components/Header'
 import {Footer} from './components/Footer'
 import {FirstStep} from './components/FirstStep'
 import {ViewDataForShelter} from './components/ViewDataForShelter'
+import ViewWithCalendar from './components/ViewWithCalendar';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,7 +19,8 @@ function App() {
       <Switch>
         {/* <Route path="/"><div>STRONA GŁÓWNA</div></Route> */}
         {/* <Route path="/"><FirstStep></FirstStep></Route> */}
-        <Route path="/"><ViewDataForShelter></ViewDataForShelter></Route>
+        {/* <Route path="/"><ViewDataForShelter></ViewDataForShelter></Route> */}
+        <Route path="/"><ViewWithCalendar></ViewWithCalendar></Route>
       </Switch>
     </Router>
     <Footer></Footer>
