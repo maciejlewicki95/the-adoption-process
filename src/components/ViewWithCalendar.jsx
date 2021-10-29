@@ -122,7 +122,8 @@ import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/pl'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import events from './events';
+import './modal.css'
+import { ShowEvent } from './ShowEvent';
 
 const localizer = momentLocalizer(moment)
 let allViews = Object.keys(Views).map(k => Views[k])
@@ -133,35 +134,54 @@ const ColoredDateCellWrapper = ({ children }) =>
       backgroundColor: 'lightblue',
     },
   })
+const events = [{
+    id: 0,
+    title: 'All Day Event very long title',
+    start: new Date(2021, 9, 28, 17, 0, 0),
+    end: new Date(2021, 9, 28, 17, 40, 0),
+    location: 'Warszawa'
+  },
+  {
+    id: 1,
+    title: 'Long Event',
+    start: new Date(2021, 9, 28, 17, 30, 0),
+    end: new Date(2021, 9, 28, 18, 0, 0),
+    location: 'Poznań'
+  },
+
+]
 
 
 
-let ViewWithCalendar = () => (
-  <Calendar
-    selectable
-    timeslots={2}
-    views={allViews}
-    events={events}
-    step={60}
-    showMultiDayTimes
-    defaultDate={new Date(2015, 3, 1)}
-    components={{
-      timeSlotWrapper: ColoredDateCellWrapper,
-    }}
-    localizer={localizer}
-    style={{height: 500}}
-    messages={{
-        next: "Następny",
-        previous: "Poprzedni",
-        today: "Aktualny",
-        month: "Miesiąc",
-        week: "Tydzień",
-        day: "Dzień",
-        work_week: "Tydzień pracy",
-        agenda: "Terminarz",
-        noEventsInRange: "Nie ma żadnego wydarzenia w wybranym zakresie."
-      }}
-  />
-)
 
-export default ViewWithCalendar
+export const ViewWithCalendar = () => {
+
+  return(
+    <>
+      <ShowEvent />
+      <Calendar
+        timeslots={2}
+        views={allViews}
+        events={events}
+        showMultiDayTimes
+        onSelectEvent = {event => alert(event.location)}
+        defaultDate={new Date()}
+        components={{
+          timeSlotWrapper: ColoredDateCellWrapper,
+        }}
+        localizer={localizer}
+        style={{height: 500}}
+        messages={{
+            next: "Następny",
+            previous: "Poprzedni",
+            today: "Aktualny",
+            month: "Miesiąc",
+            week: "Tydzień",
+            day: "Dzień",
+            work_week: "Tydzień pracy",
+            agenda: "Terminarz",
+            noEventsInRange: "Nie ma żadnego wydarzenia w wybranym zakresie."
+          }}
+      />
+    </>
+  )}

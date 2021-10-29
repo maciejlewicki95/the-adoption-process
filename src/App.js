@@ -3,7 +3,7 @@ import {Header} from './components/Header'
 import {Footer} from './components/Footer'
 import {FirstStep} from './components/FirstStep'
 import {ViewDataForShelter} from './components/ViewDataForShelter'
-import ViewWithCalendar from './components/ViewWithCalendar';
+import {ViewWithCalendar} from './components/ViewWithCalendar';
 import {
   BrowserRouter as Router,
   Switch,
