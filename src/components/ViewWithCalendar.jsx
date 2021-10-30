@@ -117,7 +117,7 @@
 //     )
 // }
 
-import React from 'react';
+import React, {useState} from 'react';
 import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/pl'
@@ -151,20 +151,47 @@ const events = [{
 
 ]
 
-
-
-
 export const ViewWithCalendar = () => {
 
+  // const ShowEvent = props => {
+
+  //   console.log(props.show)
+  //   console.log(props.eventTemp)
+  //   if (!props.show) return null
+    
+  //   return (
+  //       <>
+  //           <div class="event_modal">
+  //               <div class="event_modal_content">
+  //                   <div class="event_modal_header">
+  //                       <h4 class="event_modal_title">{props.eventTemp.title}</h4>
+  //                       <div class="event_modal_body">
+  //                           {props.eventTemp.start}
+  //                           {props.eventTemp.end}
+  //                           <div class="event_modal_footer">
+  //                               <button class="button">Close</button>
+  //                           </div>
+  //                       </div>
+  //                   </div>
+  //               </div>
+  //           </div>
+  //       </>
+  //   )
+  // }
+
+  const [show, setShow] = useState(false)
+  const [eventTemp, setEventTemp] = useState(null)
+  const [editMode, setEditMode] = useState(true)
+  
   return(
     <>
-      <ShowEvent />
+      <ShowEvent onDisable={() => setEditMode(false)} onClose={() => setShow(false)} show={show} eventTemp={eventTemp} editMode={editMode} />
       <Calendar
         timeslots={2}
         views={allViews}
         events={events}
         showMultiDayTimes
-        onSelectEvent = {event => alert(event.location)}
+        onSelectEvent = {event => (setShow(true), setEventTemp(event))}
         defaultDate={new Date()}
         components={{
           timeSlotWrapper: ColoredDateCellWrapper,
