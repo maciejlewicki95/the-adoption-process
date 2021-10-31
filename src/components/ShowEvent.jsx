@@ -5,9 +5,17 @@ import 'moment/locale/pl'
 
 export const ShowEvent = props => {
 
+    const [dateStartChange, setDateStartChange] = useState(null)
+    const [dateEndChange, setDateEndChange] = useState(null)
+    const [locationChange, setLocationChange] = useState(null)
 
-    console.log(props.show)
-    console.log(props.eventTemp)
+    useEffect(() => {
+        if (props.eventTemp != null) {
+            setDateStartChange(moment(props.eventTemp.start).format("YYYY-MM-DDTHH:mm"))
+            setDateEndChange(moment(props.eventTemp.end).format("YYYY-MM-DDTHH:mm"))
+            setLocationChange(props.eventTemp.location)
+        }
+    })
 
     if (!props.show) return null
 
@@ -28,11 +36,11 @@ export const ShowEvent = props => {
                                 <div className="event_modal_single_entry">{moment(props.eventTemp.end).format("YYYY-MM-DD HH:mm")}
                                 </div>
                                 Miejsce spotkania:
-                                <div className="event_modal_single_entry">{props.eventTemp.location}
+                                <div className="event_modal_single_entry">{locationChange}
                                 </div>
                             </div>
                             <div className="event_modal_footer">
-                                <button className="button">Edytuj</button>
+                                <button onClick={props.onEnable} className="button">Edytuj</button>
                                 <button onClick={props.onClose} className="button">Zamknij</button>
                             </div>
                         </div>
@@ -53,15 +61,15 @@ export const ShowEvent = props => {
                             </div>
                             <div className="event_modal_body">
                                 Wybierz nową godzinę rozpoczęcia spotkania:
-                                <div className="event_modal_single_entry"><input type='datetime-local' value={moment(props.eventTemp.start).format("YYYY-MM-DDTHH:mm")}>
+                                <div className="event_modal_single_entry"><input type='datetime-local' defaultValue={dateStartChange} onChange={event => (setDateStartChange(event.target.value), console.log(props.eventTemp.start))}>
                                 </input>
                                 </div>
                                 Wybierz nową godzinę zakończenia spotkania:
-                                <div className="event_modal_single_entry"><input type='datetime-local' value={moment(props.eventTemp.end).format("YYYY-MM-DDTHH:mm")}>
+                                <div className="event_modal_single_entry"><input type='datetime-local' defaultValue={dateEndChange} onChange={event => setDateEndChange(event.target.value)}>
                                 </input>
                                 </div>
                                 Wybierz nowe miejsce spotkania:
-                                <div className="event_modal_single_entry"><input type='text' value={props.eventTemp.location}>
+                                <div className="event_modal_single_entry"><input type='text' defaultValue={locationChange} onChange={event => setLocationChange(event.target.value)}>
                                 </input>
                                 </div>
                             </div>

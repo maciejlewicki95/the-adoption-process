@@ -181,11 +181,26 @@ export const ViewWithCalendar = () => {
 
   const [show, setShow] = useState(false)
   const [eventTemp, setEventTemp] = useState(null)
-  const [editMode, setEditMode] = useState(true)
+  const [editMode, setEditMode] = useState(false)
+  // const [id, setId] = useState(null)
+  // const [newMeetingDateStart, setNewMeetingDateStart] = useState(null)
+  // const [newMeetingDateEnd, setNewMeetingDateEnd] = useState(null)
+  // const [newMeetingLocation, setNewMeetingLocation] = useState(null)
+
+  function updateMeetingData() {
+    for (meeting in events) {
+      if (meeting.id === id) {
+        meeting.start = new Date(meetingStart)
+        meeting.end = new Date(meetingEnd)
+        meeting.location = meetingLocation
+        console.log(meeting)
+      }
+    }
+  }
   
   return(
     <>
-      <ShowEvent onDisable={() => setEditMode(false)} onClose={() => setShow(false)} show={show} eventTemp={eventTemp} editMode={editMode} />
+      <ShowEvent onConfirm={() => updateMeetingData()} onEnable={() => setEditMode(true)} onDisable={() => setEditMode(false)} onClose={() => setShow(false)} show={show} eventTemp={eventTemp} editMode={editMode} />
       <Calendar
         timeslots={2}
         views={allViews}
