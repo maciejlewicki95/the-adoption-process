@@ -164,18 +164,8 @@ export const FirstStep = () => {
         data["houseType"] = houseType
         data["flatFloor"] = flatFloor
         data["houseArea"] = houseArea
-        data["images"] = images
-        // data.push({"gender": gender})
-        // data.push({"age": age})
-        // data.push({"has_kids": hasKids})
-        // data.push({"how_many_kids": howManyKids})
-        // data.push({"age_of_the_youngest_kid": ageOfYoungestKid})
-        // data.push({"house_type": houseType})
-        // data.push({"flat_floor": flatFloor})
-        // data.push({"house_area": houseArea})
-        // var obj = JSON.parse(data)
-        console.log(data)
-        // data.append("images", images)
+        // data["images"] = images
+        // console.log(data)
         axios.post("http://localhost:8080/test", data)
 
     }

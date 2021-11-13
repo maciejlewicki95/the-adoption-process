@@ -61,7 +61,7 @@ export const ShowEvent = props => {
                             </div>
                             <div className="event_modal_body">
                                 Wybierz nową godzinę rozpoczęcia spotkania:
-                                <div className="event_modal_single_entry"><input type='datetime-local' defaultValue={dateStartChange} onChange={event => (setDateStartChange(event.target.value), console.log(props.eventTemp.start))}>
+                                <div className="event_modal_single_entry"><input type='datetime-local' defaultValue={dateStartChange} onChange={event => (setDateStartChange(event.target.value))}>
                                 </input>
                                 </div>
                                 Wybierz nową godzinę zakończenia spotkania:

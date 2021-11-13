@@ -5,11 +5,8 @@ import './style.css'
 
 export const ViewDataForShelter = () => {
 
-    const [appState, setAppState] = useState(null)
-    // const images = [{src: 'http://localhost:8080/images/foto1.jpg'}, 
-    //     {src: 'http://localhost:8080/images/foto2.jpg'},
-    //     {src: 'http://localhost:8080/images/foto3.jpg'},
-    //     {src: 'http://localhost:8080/images/samochodzikipiesek.jpg'}]
+    // const [appState, setAppState] = useState(null)
+    const [appState, setAppState] = useState({age: 15, gender: "male", howManyKids: 0, houseType: "flat", flatFloor: 7, houseArea: 77})
 
 
     const [images, setImages] = useState(['http://localhost:8080/images/foto1.jpg',
@@ -18,15 +15,15 @@ export const ViewDataForShelter = () => {
         'http://localhost:8080/images/samochodzikipiesek.jpg'])
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const url = 'http://localhost:8080/application-data/7';
-        fetch(url)
-            .then(data => data.json())
-            .then(response => {
-                if (response.status != 500){
-                setAppState(response)}});
-    })
+    //     const url = 'http://localhost:8080/application-data/7';
+    //     fetch(url)
+    //         .then(data => data.json())
+    //         .then(response => {
+    //             if (response.status != 500){
+    //             setAppState(response)}});
+    // })
 
     function ageConverter(ageInMonths){
         let months = ageInMonths % 12
@@ -80,7 +77,7 @@ export const ViewDataForShelter = () => {
                     {images.map(image => {
                         return (
                             <div className="single-image">
-                                <a href={image}><img src={image} /></a>
+                                <a href={image} target="_blank"><img src={image} /></a>
                             </div>
                         )
                     })}
