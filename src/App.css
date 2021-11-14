@@ -22,6 +22,7 @@
 .header_container {
 width: 100%;
 padding-top: 200px;
+z-index: 100;
 }
 
 .header {
@@ -133,6 +134,7 @@ margin-right: auto;
 .header_container {
   width: 100%;
   padding-top: 140px;
+  z-index: 100;
 }
 
 .header {

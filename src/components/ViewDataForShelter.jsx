@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './style.css'
+import ProgressBar from './ProgressBar'
 
 
 
@@ -55,6 +56,7 @@ export const ViewDataForShelter = () => {
             <div className="container">
                 
                 {appState != null ? (<><h1>Dane o osobie składającej wniosek</h1>
+                    <ProgressBar step={1}></ProgressBar>
                     <div className="data-container">
                     <div className="data-container-element"><span>Wiek: </span>{appState.age}</div>
                     <div className="data-container-element"><span>Płeć: </span>{appState.gender == "male" && ("mężczyzna")} {appState.gender == "female" && ("kobieta")}</div>

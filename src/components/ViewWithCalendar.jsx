@@ -123,6 +123,7 @@ import moment from 'moment';
 import 'moment/locale/pl'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './modal.css'
+import ProgressBar from './ProgressBar'
 // import { ShowEvent } from './ShowEvent';
 
 const localizer = momentLocalizer(moment)
@@ -293,6 +294,7 @@ export const ViewWithCalendar = () => {
     <>
       <br/>
       <div className="container">
+      <ProgressBar step={2}></ProgressBar>
       <ShowEvent onConfirm={(event) => updateMeetingData(event)} onEnable={() => setEditMode(true)} onDisable={() => setEditMode(false)} onClose={() => setShow(false)} show={show} eventTemp={eventTemp} editMode={editMode} />
       <Calendar
         timeslots={2}
@@ -313,7 +315,6 @@ export const ViewWithCalendar = () => {
             month: "Miesiąc",
             week: "Tydzień",
             day: "Dzień",
-            work_week: "Tydzień pracy",
             noEventsInRange: "Nie ma żadnego wydarzenia w wybranym zakresie."
           }}
       />

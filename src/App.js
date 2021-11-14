@@ -4,6 +4,7 @@ import {Footer} from './components/Footer'
 import {FirstStep} from './components/FirstStep'
 import {ViewDataForShelter} from './components/ViewDataForShelter'
 import {ViewWithCalendar} from './components/ViewWithCalendar';
+import { PickUpDate } from './components/PickUpDate';
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,7 +21,8 @@ function App() {
         {/* <Route path="/"><div>STRONA GŁÓWNA</div></Route> */}
         {/* <Route path="/"><FirstStep></FirstStep></Route> */}
         {/* <Route path="/"><ViewDataForShelter></ViewDataForShelter></Route> */}
-        <Route path="/"><ViewWithCalendar></ViewWithCalendar></Route>
+        {/* <Route path="/"><ViewWithCalendar></ViewWithCalendar></Route> */}
+        <Route path="/"><PickUpDate></PickUpDate></Route>
       </Switch>
     </Router>
     <Footer></Footer>

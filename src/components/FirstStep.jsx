@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './test.css'
 import axios from 'axios';
+import ProgressBar from './ProgressBar'
 
 export const FirstStep = () => {
 
@@ -192,7 +193,7 @@ export const FirstStep = () => {
     return (
         <>
             <div className="container">
-                <h1>1. krok do adopcji</h1>
+            <ProgressBar step={1}></ProgressBar>
                 <h2>Pytania metryczkowe</h2>
                 <form id='form' encType="multipart/form-data">
                     <div className="input-choice">
