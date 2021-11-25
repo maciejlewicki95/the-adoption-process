@@ -251,6 +251,7 @@ export const PickUpDate = () => {
 
   function rescheduleMeeting(slot) {
     var oldDateMeeting = reservedSlot
+    console.log(reservedSlot)
     setReservedSlot(slot)
     timeSlots.push(oldDateMeeting)
     setRescheduledMeeting(false)
@@ -258,7 +259,7 @@ export const PickUpDate = () => {
     setShowCalendar(false)
     setMeetingScheduled(true)
     setEventTemp(null)
-    console.log(moment(reservedSlot.start).format("hh:mm"))
+    console.log(moment(reservedSlot.start).format("HH:mm"))
   }
   
   console.log(reservedSlot)
@@ -278,8 +279,8 @@ export const PickUpDate = () => {
         {canceledMeeting && !showCalendar && (<>
         Odwołałeś swoją wizytę. Jeśli chcesz wybrać nową datę <span id="change_meeting" onClick={event => setShowCalendar(true)}>kliknij tutaj</span></>)}
         {showCalendar && (<>
-          <ShowModalConfirmation onConfirm={(event) => slotsManager(event)} onClose={() => setShowModalConfirmation(false)} eventTemp={eventTemp} showModalConfirmation={showModalConfirmation} />)
-          {/* {rescheduledMeeting && (<ShowModalConfirmation onConfirm={(event) => rescheduleMeeting(event)} onClose={() => setShowModalConfirmation(false)} eventTemp={eventTemp} showModalConfirmation={showModalConfirmation} />)} */}
+          {(canceledMeeting || !canceledMeeting || !rescheduledMeeting) && (<ShowModalConfirmation onConfirm={(event) => slotsManager(event)} onClose={() => setShowModalConfirmation(false)} eventTemp={eventTemp} showModalConfirmation={showModalConfirmation} />)}
+          {rescheduledMeeting && (<ShowModalConfirmation onConfirm={(event) => rescheduleMeeting(event)} onClose={() => setShowModalConfirmation(false)} eventTemp={eventTemp} showModalConfirmation={showModalConfirmation} />)}
           <div>W kalendarzu są widoczne wolne terminy wizyt tylko na najbliższy tydzień. W celu umówienia wizyty na późniejszy termin prosimy o kontakt telefoniczy pod numerem 600-600-600 lub mailowy pod adresem adoptme@info.pl</div>
           <br />
           <Calendar
